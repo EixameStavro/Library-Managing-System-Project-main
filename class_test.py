@@ -4,6 +4,7 @@ class User:
         self.username = username
         self.loans = []  # Each element is a dictionary {'book': book_info, 'loaned_by': username}
         self.library = []  # Each user has their own library
+        
 
     def sign_up(self):
         username = input("Enter a username: ")
