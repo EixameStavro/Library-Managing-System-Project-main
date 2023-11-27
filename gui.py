@@ -3,10 +3,10 @@ from tkinter import messagebox
 from tkinter import ttk
 
 class EditBookPopApp:
-    editBookEntries = []
     add_placeholder = ("Isbn:", "Title:", "Author:", "Section:", "Stock:")
 
     def __init__(self, root):
+        self.editBookEntries = []
         self.root = root
         self.root.title("Edit Book Info")
         self.root.geometry("270x300")
@@ -37,7 +37,7 @@ class EditBookPopApp:
         self.findButton = tk.Button(self.frame, text="Find", 
                                     pady=15, padx=15,
                                     font=("Helvetica", 18),
-                                    command=self.editBook)
+                                    command=self.findBook)
         self.findButton.grid(row=6,column=0)
 
     #Submit Button
@@ -50,11 +50,12 @@ class EditBookPopApp:
     #Error-Label
         self.errorLabel = tk.Label(self.frame, text="")
         self.errorLabel.grid(row=7, column=0, columnspan=2)
-    def editBook(self):
+
+    def findBook(self):
 
         def updateEntries():
             #Deletes whatever you wrote
-            for i in range(0, len(self.editBookEntries)-1):
+            for i in range(0, len(self.editBookEntries)):
                 self.editBookEntries[i].delete(0, "end")
 
             #Prints the info from database on the entries
@@ -65,8 +66,6 @@ class EditBookPopApp:
         isbn = self.editBookEntries[0].get()
         title = self.editBookEntries[1].get()
         author = self.editBookEntries[2].get()
-        section = self.editBookEntries[3].get()
-        stock = self.editBookEntries[4].get()
 
         with open("database.txt", "r", encoding="utf-8") as database:
             found = False
@@ -83,10 +82,9 @@ class EditBookPopApp:
         else:
             self.errorLabel.config(text="This book isn't in the library's database")
         
-
-
     def submitChanges(self):
         return
+            
 
 class AddBookPopApp:
     addBookEntries = []
